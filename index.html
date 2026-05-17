@@ -3,43 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portofolio Desain dan Fotografi - Satria Alfariza">
-    <title>Portfolio • Satria Alfariza</title>
-    <!-- Favicon Catbox -->
-    <link rel="icon" href="https://files.catbox.moe/0cawyh.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://files.catbox.moe/0cawyh.png">
-    
+    <title>Mahani Makeup | Rias Pengantin & Makeup Profesional</title>
+    <link rel="icon" href="https://files.catbox.moe/nbebad.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+// Smooth scroll untuk nav link
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href') !== '#') {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Active nav highlight saat scroll
+window.addEventListener('scroll', () => {
+    let current = '';
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('text-pink-500', 'font-semibold');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('text-pink-500', 'font-semibold');
+        }
+    });
+});
+</script>
+<script>
+// Auto slide setiap 5 detik
+function autoSlide(sliderId) {
+    const slider = document.getElementById(sliderId);
+    if (slider) {
+        const scrollAmount = slider.clientWidth * 0.9;
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+        // Reset ke awal jika sudah di akhir
+        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+    }
+}
+
+setInterval(() => autoSlide('makeup-slider'), 5000);
+setInterval(() => autoSlide('henna-slider'), 5200);
+setInterval(() => autoSlide('gaun-slider'), 5500);
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
         
-        :root {
-            --tw-color-primary: #e2b14d;
-        }
+        .heading-font { font-family: 'Playfair Display', sans-serif; }
         
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        
-        .heading-font {
-            font-family: 'Playfair Display', serif;
-        }
-
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://files.catbox.moe/2klre7.jpg');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
         }
-
+        
+        .slider-container {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .slider-container::-webkit-scrollbar { display: none; }
+        
+        .slide { 
+            flex: 0 0 100%; 
+            scroll-snap-align: center; 
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .slide {
+                flex: 0 0 88%;
+                margin-right: 16px;
+            }
+            .arrow-btn {
+                width: 52px !important;
+                height: 52px !important;
+                font-size: 1.8rem !important;
+            }
+        }
+        
         .nav-link {
             position: relative;
-            transition: all 0.3s ease;
         }
-        
         .nav-link:after {
             content: '';
             position: absolute;
@@ -47,590 +102,226 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background-color: #e2b14d;
-            transition: all 0.3s ease;
+            background-color: #db2777;
+            transition: all 0.3s;
         }
-        
-        .nav-link:hover:after {
-            width: 100%;
-        }
-
-        .project-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
-        }
-
-        .masonry-grid {
-            column-count: 3;
-            column-gap: 1.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .masonry-grid {
-                column-count: 2;
-            }
-        }
-        
-        .lightbox {
-            animation: fadeIn 0.3s ease forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .nav-link:hover:after { width: 100%; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100">
+<body class="font-sans">
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/90 backdrop-blur-lg border-b border-zinc-800">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-amber-400 rounded-2xl flex items-center justify-center text-zinc-950 text-2xl font-bold shadow-inner">📸</div>
-                <h1 class="heading-font text-3xl tracking-tighter">Portfolio</h1>
+    <nav class="bg-white border-b border-pink-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://files.catbox.moe/nbebad.png" 
+                     alt="Mahani Makeup Logo" 
+                     class="w-16 h-16 sm:w-20 sm:h-20 object-contain">
+                <div>
+                    <h1 class="heading-font text-2xl sm:text-3xl font-bold tracking-tighter text-pink-950">Mahani</h1>
+                    <p class="text-xs text-pink-500 -mt-1 font-medium">MAKEUP</p>
+                </div>
             </div>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+            <div class="hidden md:flex items-center gap-8 text-pink-950 font-medium">
                 <a href="#beranda" class="nav-link">Beranda</a>
-                <a href="#tentang" class="nav-link">Tentang</a>
-                <a href="#desain" class="nav-link">Desain</a>
-                <a href="#fotografi" class="nav-link">Fotografi</a>
+                <a href="#hasil-makeup" class="nav-link">Hasil Makeup</a>
+                <a href="#henna-art" class="nav-link">Henna Art</a>
+                <a href="#gaun-pengantin" class="nav-link">Gaun Pengantin</a>
                 <a href="#kontak" class="nav-link">Kontak</a>
             </div>
 
-            <!-- Social Icons -->
-            <div class="hidden md:flex items-center gap-x-4">
-                <a href="https://instagram.com" target="_blank" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
-                <a href="https://behance.net" target="_blank" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-behance text-xl"></i></a>
-                <a href="https://linkedin.com" target="_blank" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-            </div>
-
-            <!-- Mobile Hamburger -->
-            <button onclick="toggleMobileMenu()" class="md:hidden text-3xl">
-                <i class="fa-solid fa-bars" id="hamburger"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 px-6 py-6">
-            <div class="flex flex-col gap-y-6 text-lg">
-                <a href="#beranda" onclick="toggleMobileMenu()" class="hover:text-amber-400">Beranda</a>
-                <a href="#tentang" onclick="toggleMobileMenu()" class="hover:text-amber-400">Tentang Saya</a>
-                <a href="#desain" onclick="toggleMobileMenu()" class="hover:text-amber-400">Desain</a>
-                <a href="#fotografi" onclick="toggleMobileMenu()" class="hover:text-amber-400">Fotografi</a>
-                <a href="#kontak" onclick="toggleMobileMenu()" class="hover:text-amber-400">Kontak</a>
-                
-                <div class="flex gap-x-6 pt-4 border-t border-zinc-700">
-                    <a href="https://instagram.com" target="_blank" class="text-3xl hover:text-amber-400"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://behance.net" target="_blank" class="text-3xl hover:text-amber-400"><i class="fa-brands fa-behance"></i></a>
-                    <a href="https://linkedin.com" target="_blank" class="text-3xl hover:text-amber-400"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
-            </div>
+            <a href="#kontak" class="px-5 py-3 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-3xl flex items-center gap-2 text-sm sm:text-base">
+                <i class="fa-solid fa-calendar-check"></i> Booking
+            </a>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section id="beranda" class="hero-bg min-h-screen flex items-center pt-16">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-3xl text-sm font-medium">
-                    <div class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-                    Desain &amp; Fotografi
-                </div>
-                
-                <h1 class="heading-font text-6xl md:text-7xl leading-none font-bold tracking-tighter">
-                    Halo, saya<br><span class="text-amber-400">Satria Alfariza</span>
+    <section id="beranda" class="hero-bg min-h-screen flex items-center py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 items-center">
+            <div class="space-y-6">
+                <h1 class="heading-font text-5xl sm:text-6xl md:text-7xl font-bold leading-none text-pink-950">
+                    Rias Pengantin<br>yang Elegan &<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Berkelas</span>
                 </h1>
-                
-                <p class="text-xl text-zinc-300 max-w-md">
-                    Desainer grafis &amp; fotografer yang menciptakan visual yang kuat dan bermakna.
-                </p>
-                
-                <div class="flex items-center gap-x-4">
-                    <a href="#desain" 
-                       class="px-8 py-4 bg-amber-400 hover:bg-amber-300 transition-colors text-zinc-950 font-semibold rounded-2xl flex items-center gap-x-3">
-                        Lihat Karya Desain
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="#fotografi" 
-                       class="px-8 py-4 border border-white/30 hover:border-white/60 transition-colors rounded-2xl flex items-center gap-x-3">
-                        Jelajahi Fotografi
-                    </a>
-                </div>
-                
-                <div class="flex items-center gap-x-8 text-sm">
-                    <div>
-                        <div class="text-amber-400 text-4xl font-semibold">50+</div>
-                        <div class="text-zinc-400">Proyek Selesai</div>
-                    </div>
-                    <div>
-                        <div class="text-amber-400 text-4xl font-semibold">50+</div>
-                        <div class="text-zinc-400">Klien Puas</div>
-                    </div>
-                    <div>
-                        <div class="text-amber-400 text-4xl font-semibold">5</div>
-                        <div class="text-zinc-400">Tahun Pengalaman</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="hidden md:block">
-                <div class="relative">
-                    <img src="https://files.catbox.moe/2klre7.jpg" 
-                         alt="Foto profil" 
-                         class="rounded-3xl shadow-2xl w-full max-w-lg mx-auto">
-                    <div class="absolute -bottom-6 -left-6 bg-zinc-900 rounded-3xl px-6 py-4 shadow-xl flex items-center gap-x-4">
-                        <i class="fa-solid fa-camera text-4xl text-amber-400"></i>
-                        <div>
-                            <p class="font-medium">Fotografi Terbaru</p>
-                            <p class="text-sm text-zinc-400">pake ai sih tapi tetep kece</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-y-2 text-xs tracking-widest">
-            SCROLL
-            <i class="fa-solid fa-chevron-down animate-bounce"></i>
-        </div>
-    </section>
-<!-- TENTANG SAYA / ABOUT -->
-    <section id="tentang" class="max-w-7xl mx-auto px-6 py-24">
-        <div class="grid md:grid-cols-12 gap-16 items-center">
-            <div class="md:col-span-5">
-                <h2 class="heading-font text-5xl font-bold mb-6">Tentang Saya</h2>
-                <p class="text-zinc-300 text-lg leading-relaxed">
-                    Halo, saya <strong>Satria Alfariza</strong>, desainer grafis dan fotografer yang berbasis di Bogor. 
-                    Saya percaya bahwa setiap visual punya kekuatan untuk menceritakan sesuatu yang lebih dalam.
-                </p>
-                <p class="text-zinc-300 text-lg leading-relaxed mt-6">
-                    Dengan kombinasi desain yang clean dan fotografi yang penuh emosi, saya membantu brand, 
-                    bisnis, dan individu menyampaikan cerita mereka melalui gambar yang kuat dan berkesan.
-                </p>
-
-                <div class="mt-12 flex flex-wrap gap-8">
-                    <div>
-                        <p class="uppercase text-xs text-amber-400 mb-1">Tools Desain</p>
-                        <p class="text-zinc-400">Figma • Photoshop • Illustrator • Lightroom</p>
-                    </div>
-                    <div>
-                        <p class="uppercase text-xs text-amber-400 mb-1">Kamera</p>
-                        <p class="text-zinc-400">Sony A7IV • Fujifilm • Canon</p>
-                    </div>
-                    <div>
-                        <p class="uppercase text-xs text-amber-400 mb-1">Spesialisasi</p>
-                        <p class="text-zinc-400">Brand Identity • Portrait • Product Photography</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Foto Profil -->
-            <div class="md:col-span-7">
-                <div class="relative">
-                    <img src="./assets/images/profil.jpg" 
-                         alt="Satria Alfariza" 
-                         class="rounded-3xl shadow-2xl w-full">
-                    <div class="absolute -bottom-6 -left-6 bg-zinc-900 rounded-3xl px-6 py-4 shadow-xl flex items-center gap-x-4">
-                        <i class="fa-solid fa-camera text-4xl text-amber-400"></i>
-                        <div>
-                            <p class="font-medium">Fotografer &amp; Desainer</p>
-                            <p class="text-sm text-zinc-400">Bogor, Indonesia</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LAYANAN / SERVICES -->
-    <section class="bg-zinc-900 py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="uppercase text-amber-400 text-sm tracking-widest">Apa yang saya tawarkan</span>
-                <h2 class="heading-font text-5xl font-bold mt-3">Layanan Saya</h2>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Service 1 -->
-                <div class="bg-zinc-950 p-8 rounded-3xl hover:scale-105 transition-transform project-card">
-                    <div class="text-5xl mb-6">🎨</div>
-                    <h3 class="text-2xl font-semibold mb-3">Brand Identity</h3>
-                    <p class="text-zinc-400">Logo, Visual Identity System, Brand Guideline, Packaging Design</p>
-                    <ul class="mt-6 space-y-2 text-sm text-zinc-500">
-                        <li>✓ Logo Design</li>
-                        <li>✓ Brand Kit</li>
-                        <li>✓ Packaging</li>
-                        <li>✓ Social Media Kit</li>
-                    </ul>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="bg-zinc-950 p-8 rounded-3xl hover:scale-105 transition-transform project-card">
-                    <div class="text-5xl mb-6">📸</div>
-                    <h3 class="text-2xl font-semibold mb-3">Fotografi</h3>
-                    <p class="text-zinc-400">Portrait, Product, Lifestyle, Event, Prewedding &amp; Commercial Photography</p>
-                    <ul class="mt-6 space-y-2 text-sm text-zinc-500">
-                        <li>✓ Portrait Photography</li>
-                        <li>✓ Product Photography</li>
-                        <li>✓ Event Coverage</li>
-                        <li>✓ Editing Profesional</li>
-                    </ul>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="bg-zinc-950 p-8 rounded-3xl hover:scale-105 transition-transform project-card">
-                    <div class="text-5xl mb-6">📱</div>
-                    <h3 class="text-2xl font-semibold mb-3">Social Media Content</h3>
-                    <p class="text-zinc-400">Desain feed Instagram, Carousel, Reels Thumbnail, dan Konten Visual</p>
-                    <ul class="mt-6 space-y-2 text-sm text-zinc-500">
-                        <li>✓ Instagram Feed Design</li>
-                        <li>✓ Content Creation</li>
-                        <li>✓ Reels &amp; Stories</li>
-                        <li>✓ Visual Strategy</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </section>
-            
-            <div class="md:col-span-7">
-                <div class="bg-zinc-900 rounded-3xl p-8 grid grid-cols-2 gap-8">
-                    <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div class="text-4xl">🎨</div>
-                            <div>
-                                <h4 class="font-semibold text-xl">Desain yang Bermakna</h4>
-                                <p class="text-zinc-400">Setiap proyek dimulai dari cerita dan emosi klien.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="text-4xl">📷</div>
-                            <div>
-                                <h4 class="font-semibold text-xl">Momen yang Abadi</h4>
-                                <p class="text-zinc-400">Saya menangkap keindahan dunia melalui lensa kamera.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-6 border-l border-zinc-700 pl-8">
-                        <div>
-                            <p class="text-amber-400 font-medium">Klien Terbaru</p>
-                            <ul class="mt-3 space-y-2 text-sm text-zinc-400">
-                                <li class="flex items-center gap-x-2">• Brand Kopi Lokal</li>
-                                <li class="flex items-center gap-x-2">• Startup Fashion</li>
-                                <li class="flex items-center gap-x-2">• Majalah Lifestyle</li>
-                                <li class="flex items-center gap-x-2">• Wedding Photography</li>
-                            </ul>
-                        </div>
-                        <a href="#" class="block text-amber-400 hover:text-amber-300 flex items-center gap-x-2 text-sm font-medium">
-                            Unduh CV lengkap 
-                            <i class="fa-solid fa-download"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DESAIN PORTFOLIO -->
-    <section id="desain" class="bg-zinc-900 py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <span class="uppercase text-amber-400 text-sm tracking-widest">Portofolio</span>
-                    <h2 class="heading-font text-5xl font-bold">Desain Terpilih</h2>
-                </div>
-                <a href="#" class="hidden md:flex items-center gap-x-3 group text-sm font-medium">
-                    Lihat semua karya 
-                    <span class="transition-transform group-hover:translate-x-1">→</span>
+                <p class="text-lg sm:text-xl text-pink-700">Makeup profesional, rias pengantin, henna art, dan gaun pengantin premium di Bogor & sekitarnya.</p>
+                <a href="#gaun-pengantin" class="inline-block px-8 py-4 bg-pink-500 text-white font-semibold rounded-3xl text-lg">
+                    Lihat Koleksi Gaun
                 </a>
             </div>
+            <img src="https://files.catbox.moe/zt7zwl.jpg" 
+                 class="rounded-3xl shadow-2xl w-full aspect-[4/5] sm:aspect-[3/4] object-cover" 
+                 alt="Mahani Makeup">
+        </div>
+    </section>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="project-card bg-zinc-950 rounded-3xl overflow-hidden">
-                    <img src="https://files.catbox.moe/nkny57.jpg" alt="Proyek 1" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-xl">Brand Identity • Kopi Lokal</h3>
-                            <span class="text-xs bg-amber-400/10 text-amber-400 px-3 rounded-2xl h-fit py-1">2026</span>
-                        </div>
-                        <p class="text-zinc-400 mt-2">Logo, packaging, dan visual identity lengkap.</p>
-                        <div class="mt-6 text-xs flex gap-2">
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Branding</span>
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Packaging</span>
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Figma</span>
-                        </div>
+    <!-- HASIL MAKEUP -->
+    <section id="hasil-makeup" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 class="heading-font text-4xl sm:text-5xl text-center text-pink-950 mb-4">Hasil Makeup Pengantin</h2>
+            <p class="text-center text-pink-600 mb-10">Geser untuk melihat karya terbaik</p>
+
+            <div class="relative">
+                <div id="makeup-slider" class="slider-container flex gap-4 sm:gap-6 snap-x snap-mandatory pb-8">
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/yiamjn.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Natural Glam Jawa</h4></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/pt3afi.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Soft Romantic</h4></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/zt7zwl.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Korean Dewy Look</h4></div>
                     </div>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="project-card bg-zinc-950 rounded-3xl overflow-hidden">
-                    <img src="https://files.catbox.moe/wwc579.jpg" alt="Proyek 2" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-xl">UI/UX • Aplikasi Fashion</h3>
-                            <span class="text-xs bg-amber-400/10 text-amber-400 px-3 rounded-2xl h-fit py-1">2025</span>
-                        </div>
-                        <p class="text-zinc-400 mt-2">Mobile app design dengan fokus user experience.</p>
-                        <div class="mt-6 text-xs flex gap-2">
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">UI/UX</span>
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Mobile</span>
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Figma</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="project-card bg-zinc-950 rounded-3xl overflow-hidden">
-                    <img src="https://files.catbox.moe/fji4tt.jpg" alt="Proyek 3" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-xl">Editorial Design • Majalah</h3>
-                            <span class="text-xs bg-amber-400/10 text-amber-400 px-3 rounded-2xl h-fit py-1">2025</span>
-                        </div>
-                        <p class="text-zinc-400 mt-2">Layout majalah lifestyle edisi spesial.</p>
-                        <div class="mt-6 text-xs flex gap-2">
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Editorial</span>
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Print</span>
-                            <span class="bg-zinc-800 px-4 py-2 rounded-3xl">Adobe InDesign</span>
-                        </div>
-                    </div>
-                </div>
+                <button onclick="prevSlide('makeup-slider')" class="arrow-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white shadow-xl w-12 h-12 rounded-2xl flex items-center justify-center text-3xl text-pink-500 hover:bg-pink-50">‹</button>
+                <button onclick="nextSlide('makeup-slider')" class="arrow-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white shadow-xl w-12 h-12 rounded-2xl flex items-center justify-center text-3xl text-pink-500 hover:bg-pink-50">›</button>
             </div>
         </div>
     </section>
 
-    <!-- FOTOGRAFI GALLERY -->
-    <section id="fotografi" class="max-w-7xl mx-auto px-6 py-24">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <span class="uppercase text-amber-400 text-sm tracking-widest">Gallery</span>
-                <h2 class="heading-font text-5xl font-bold">Fotografi</h2>
-            </div>
-            <p class="max-w-xs text-zinc-400 hidden md:block">Koleksi momen yang saya abadikan dengan kamera. Klik foto untuk melihat versi besar.</p>
-        </div>
+    <!-- HENNA ART -->
+    <section id="henna-art" class="py-16 sm:py-20 bg-pink-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 class="heading-font text-4xl sm:text-5xl text-center text-pink-950 mb-4">Henna Art Pengantin</h2>
+            <p class="text-center text-pink-600 mb-10">Desain henna eksklusif & elegan</p>
 
-        <!-- Masonry Gallery -->
-        <div class="masonry-grid">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/8mqgrr.jpg" alt="Foto 1" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/3pd5yp.jpg" alt="Foto 2" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/reqwxs.jpg" alt="Foto 3" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/46e4ux.jpg" alt="Foto 4" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/3wrdfb.jpg" alt="Foto 5" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/og2vk1.JPG" alt="Foto 6" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
-            <img onclick="openLightbox(this)" src="https://files.catbox.moe/4b6qp5.JPG" alt="Foto 7" class="mb-6 rounded-3xl cursor-pointer hover:brightness-110 transition-all">
+            <div class="relative">
+                <div id="henna-slider" class="slider-container flex gap-4 sm:gap-6 snap-x snap-mandatory pb-8">
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/7nuvak.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Arabic Luxury Henna</h4></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/zau1oj.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Modern Minimalist</h4></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/bo6j2m.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Javanese Traditional</h4></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/l1vrs3.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Floral Romance</h4></div>
+                    </div>
+                </div>
+                <button onclick="prevSlide('henna-slider')" class="arrow-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white shadow-xl w-12 h-12 rounded-2xl flex items-center justify-center text-3xl text-pink-500 hover:bg-pink-50">‹</button>
+                <button onclick="nextSlide('henna-slider')" class="arrow-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white shadow-xl w-12 h-12 rounded-2xl flex items-center justify-center text-3xl text-pink-500 hover:bg-pink-50">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAUN PENGANTIN -->
+    <section id="gaun-pengantin" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 class="heading-font text-4xl sm:text-5xl text-center text-pink-950 mb-4">Pilihan Gaun Pengantin</h2>
+            <p class="text-center text-pink-600 mb-10">Geser untuk melihat lebih banyak koleksi gaun impianmu</p>
+
+            <div class="relative">
+                <div id="gaun-slider" class="slider-container flex gap-4 sm:gap-6 snap-x snap-mandatory pb-8">
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/jjk4dy.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">A-Line Elegant</h4><p class="text-pink-500 text-sm">Modern Minimalist</p></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/qeu8uk.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Mermaid Glamour</h4><p class="text-pink-500 text-sm">Dramatic Fit</p></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/hk11n9.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Ball Gown Princess</h4><p class="text-pink-500 text-sm">Fairytale Style</p></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/30jsj4.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Kebaya Modern Luxe</h4><p class="text-pink-500 text-sm">Adat Kontemporer</p></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/lhxy4z.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Off-Shoulder Romance</h4><p class="text-pink-500 text-sm">Soft & Feminine</p></div>
+                    </div>
+                    <div class="slide min-w-full sm:min-w-[380px] bg-white rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://files.catbox.moe/g3web9.jpg" class="w-full aspect-[4/5] sm:aspect-[3/4] object-cover">
+                        <div class="p-5 sm:p-6"><h4 class="font-semibold text-lg sm:text-xl">Satin Sheath Gown</h4><p class="text-pink-500 text-sm">Elegant & Timeless</p></div>
+                    </div>
+                </div>
+                <button onclick="prevSlide('gaun-slider')" class="arrow-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white shadow-xl w-12 h-12 rounded-2xl flex items-center justify-center text-3xl text-pink-500 hover:bg-pink-50">‹</button>
+                <button onclick="nextSlide('gaun-slider')" class="arrow-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white shadow-xl w-12 h-12 rounded-2xl flex items-center justify-center text-3xl text-pink-500 hover:bg-pink-50">›</button>
+            </div>
         </div>
     </section>
 
     <!-- KONTAK -->
-    <section id="kontak" class="bg-zinc-900 py-24">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-            <div>
-                <h2 class="heading-font text-5xl font-bold mb-4">Mari berkolaborasi</h2>
-                <p class="text-zinc-400 text-xl">Saya selalu terbuka untuk proyek baru, baik desain maupun fotografi. Hubungi saya!</p>
-                
-                <div class="mt-12 space-y-4">
+    <section id="kontak" class="py-20 bg-gradient-to-br from-pink-950 to-rose-950 text-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-4xl sm:text-5xl mb-3">Hubungi Mahani Makeup</h2>
+                <p class="text-pink-200">Isi form di bawah ini atau langsung chat WhatsApp</p>
+<!-- ================== FORMSPREE ================== -->
+        <form action="https://formspree.io/f/xwvzeqyd" 
+              method="POST"
+              class="space-y-8">
+            <form class="space-y-8">
+                <div>
+                    <label class="block text-pink-200 mb-2 text-sm">Nama Lengkap</label>
+                    <input type="text" class="w-full bg-zinc-900 border border-zinc-700 focus:border-pink-500 rounded-2xl px-6 py-5 text-white placeholder:text-zinc-500 outline-none" placeholder="Masukkan nama lengkap Anda">
+                </div>
+                <div>
+                    <label class="block text-pink-200 mb-2 text-sm">Nomor WhatsApp</label>
+                    <input type="tel" class="w-full bg-zinc-900 border border-zinc-700 focus:border-pink-500 rounded-2xl px-6 py-5 text-white placeholder:text-zinc-500 outline-none" placeholder="08xxxxxxxxxx">
+                </div>
+                <div>
+                    <label class="block text-pink-200 mb-2 text-sm">Lokasi</label>
+                    <input type="text" class="w-full bg-zinc-900 border border-zinc-700 focus:border-pink-500 rounded-2xl px-6 py-5 text-white placeholder:text-zinc-500 outline-none" placeholder="Masukkan lokasi Anda">
+                </div>
+                <div>
+                    <label class="block text-pink-200 mb-2 text-sm">Paket yang Diinginkan</label>
+                    <textarea rows="5" class="w-full bg-zinc-900 border border-zinc-700 focus:border-pink-500 rounded-3xl px-6 py-5 text-white placeholder:text-zinc-500 outline-none resize-none" placeholder="Contoh: Rias pengantin + henna art..."></textarea>
+                </div>
+                <button type="button" onclick="alert('✅ Pesan terkirim! Tim Mahani akan segera menghubungi Anda 💕')" 
+                        class="w-full bg-yellow-400 hover:bg-yellow-500 text-zinc-900 font-semibold py-6 rounded-2xl flex items-center justify-center gap-3 text-lg">
+                    <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
+                </button>
+            </form>
 
-    <!-- Email -->
-    <div class="flex items-center gap-4 hover:bg-zinc-800 p-4 rounded-3xl transition-colors">
-        <i class="fa-solid fa-envelope text-4xl text-amber-400"></i>
-        <div>
-            <p class="font-medium">Email</p>
-            <a href="mailto:starknight7424@gmail.com" class="text-amber-400 hover:underline">starknight7424@gmail.com</a>
+            <!-- ================== END FORMSPREE ================== -->
+
+        <div class="text-center mt-10">
+            <a href="https://wa.me/6285604524900" target="_blank"
+               class="inline-flex items-center gap-3 mt-4 bg-white text-pink-950 px-8 py-4 rounded-3xl font-semibold">
+                <i class="fa-solid fa-phone text-2xl"></i> Chat WhatsApp
+            </a>
         </div>
-    </div>
-
-    <!-- WhatsApp -->
-    <div class="flex items-center gap-4 hover:bg-zinc-800 p-4 rounded-3xl transition-colors">
-        <i class="fa-solid fa-phone text-4xl text-amber-400"></i>
-        <div>
-            <p class="font-medium">WhatsApp</p>
-            <a href="https://wa.me/6285815502157" class="text-amber-400 hover:underline">+62 858 1550 2157</a>
-        </div>
-    </div>
-
-    <!-- Lokasi -->
-    <div class="flex items-center gap-4 hover:bg-zinc-800 p-4 rounded-3xl transition-colors">
-        <i class="fa-solid fa-location-dot text-4xl text-amber-400"></i>
-        <div>
-            <p class="font-medium">Lokasi</p>
-            <p class="text-zinc-400">Bogor, Indonesia</p>
-        </div>
-    </div>
-
-    <!-- Instagram -->
-    <div class="flex items-center gap-4 hover:bg-zinc-800 p-4 rounded-3xl transition-colors">
-        <i class="fa-brands fa-instagram text-4xl text-amber-400"></i>
-        <div>
-            <p class="font-medium">Instagram</p>
-            <a href="https://instagram.com/alpha.not.found" target="_blank" 
-               class="text-amber-400 hover:underline">@alpha.not.found</a>
-        </div>
-    </div>
-    <!-- Facebook -->
-    <div class="flex items-center gap-4 hover:bg-zinc-800 p-4 rounded-3xl transition-colors">
-        <i class="fa-brands fa-facebook text-4xl text-amber-400"></i>
-        <div>
-            <p class="font-medium">Facebook</p>
-            <a href="https://facebook.com/alpha.not.found" target="_blank" 
-               class="text-amber-400 hover:underline"></a>
-        </div>
-    </div>
-
-</div>
-
-</div>
-<!-- FORMSPREE -->
-        <form action="https://formspree.io/f/mbdwwgor" method="POST" class="space-y-6">
-            <div>
-                <label class="block text-sm text-zinc-400 mb-2">Nama Lengkap</label>
-                <input type="text" name="nama" required
-                       class="w-full bg-zinc-800 border border-transparent focus:border-amber-400 rounded-3xl px-6 py-5 outline-none text-white">
-            </div>
-            <div>
-                <label class="block text-sm text-zinc-400 mb-2">Email</label>
-                <input type="email" name="email" required
-                       class="w-full bg-zinc-800 border border-transparent focus:border-amber-400 rounded-3xl px-6 py-5 outline-none text-white">
-            </div>
-            <div>
-                <label class="block text-sm text-zinc-400 mb-2">Pesan</label>
-                <textarea name="pesan" rows="6" required
-                          class="w-full bg-zinc-800 border border-transparent focus:border-amber-400 rounded-3xl px-6 py-5 outline-none text-white resize-none"></textarea>
-            </div>
-            
-            <button type="submit"
-                    class="w-full md:w-auto px-12 py-5 bg-amber-400 hover:bg-amber-300 transition-colors text-zinc-950 font-semibold rounded-3xl flex items-center justify-center gap-x-3">
-                <i class="fa-solid fa-paper-plane"></i>
-                Kirim Pesan
-            </button>
-        </form>
     </div>
 </section>
 
-
     <!-- FOOTER -->
-    <footer class="bg-black py-12">
-        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-zinc-500">
-            <p>© 2026 satria alfariza. Semua hak dilindungi.</p>
-            <p class="mt-2">Dibuat dengan ❤️ menggunakan HTML + Tailwind</p>
+    <footer class="bg-pink-950 text-pink-300 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-2xl heading-font text-white">Mahani Makeup</p>
+            <p class="mt-2">© 2026 Mahani Makeup • Bogor &amp; Sekitarnya</p>
         </div>
     </footer>
 
-    <!-- LIGHTBOX MODAL -->
-    <div onclick="if(event.target.id === 'lightbox') closeLightbox()" 
-         id="lightbox" 
-         class="hidden fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4">
-        <div class="max-w-5xl w-full relative lightbox">
-            <button onclick="closeLightbox()" 
-                    class="absolute -top-4 -right-4 bg-zinc-800 text-white w-10 h-10 rounded-2xl flex items-center justify-center text-2xl hover:bg-zinc-700">
-                ✕
-            </button>
-            <img id="lightboxImage" src="" alt="" class="w-full rounded-3xl max-h-[85vh] object-contain">
-        </div>
-    </div>
-
     <script>
-        // Tailwind script initialization
-        function initializeTailwind() {
-            return {
-                config(userConfig = {}) {
-                    return {
-                        content: [],
-                        theme: {
-                            extend: {},
-                        },
-                        plugins: [],
-                        ...userConfig,
-                    }
-                },
-                theme(userTheme = {}) {
-                    return {
-                        ...this.defaultTheme(),
-                        ...userTheme,
-                    }
-                },
-                defaultTheme() {
-                    return {
-                        fontFamily: {
-                            serif: ['Playfair Display', 'serif']
-                        }
-                    }
-                }
+        function prevSlide(sliderId) {
+            const slider = document.getElementById(sliderId);
+            if (slider) {
+                const scrollAmount = slider.clientWidth * 0.9;
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             }
         }
 
-        // Inisialisasi Tailwind
-        document.addEventListener('DOMContentLoaded', () => {
-            return tailwind.config = initializeTailwind().config()
-        })
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu')
-            const icon = document.getElementById('hamburger')
-            menu.classList.toggle('hidden')
-            
-            if (menu.classList.contains('hidden')) {
-                icon.classList.remove('fa-xmark')
-                icon.classList.add('fa-bars')
-            } else {
-                icon.classList.add('fa-xmark')
-                icon.classList.remove('fa-bars')
+        function nextSlide(sliderId) {
+            const slider = document.getElementById(sliderId);
+            if (slider) {
+                const scrollAmount = slider.clientWidth * 0.9;
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
             }
         }
 
-        // Lightbox
-        function openLightbox(img) {
-            const lightbox = document.getElementById('lightbox')
-            const lightboxImg = document.getElementById('lightboxImage')
-            lightboxImg.src = img.src
-            lightbox.classList.remove('hidden')
-            lightbox.classList.add('flex')
-            document.body.style.overflow = 'hidden'
-        }
-
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox')
-            lightbox.classList.add('hidden')
-            lightbox.classList.remove('flex')
-            document.body.style.overflow = 'auto'
-        }
-
-        // Fake form submit
-        function handleSubmit(e) {
-            e.preventDefault()
-            const nama = document.getElementById('nama').value
-            alert(`Terima kasih, ${nama || 'teman'}! Pesan Anda sudah terkirim (simulasi). Saya akan balas secepatnya! 🎉`)
-            e.target.reset()
-        }
-
-        // Smooth scroll untuk link navigasi
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') !== '#') {
-                    e.preventDefault()
-                    const target = document.querySelector(this.getAttribute('href'))
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        })
-                    }
-                }
-            })
-        })
-
-        console.log('%c✅ Website portfolio Anda sudah siap! Ganti semua teks, gambar, dan link sesuai data Anda.', 'color:#e2b14d; font-weight:bold')
+        console.log('%c✅ Website Mahani Makeup siap digunakan!', 'color:#db2777; font-size:16px');
     </script>
 </body>
 </html>
